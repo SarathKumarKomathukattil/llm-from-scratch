@@ -1,6 +1,6 @@
 # Building a Large Language Model From Scratch
 
-A from-scratch implementation of a GPT-style **large language model** in PyTorch — built to understand how LLMs actually work under the hood, not just how to call an API. The project covers the full LLM pipeline: implementing the transformer architecture, pretraining, loading real pretrained weights, and fine-tuning for downstream tasks (classification and instruction-following).
+A from-scratch implementation of a GPT-style **large language model** in PyTorch, built to understand how LLMs actually work under the hood, not just how to call an API. The project covers the full LLM pipeline: implementing the transformer architecture, pretraining, loading real pretrained weights, and fine-tuning for downstream tasks (classification and instruction-following).
 
 > **Credit:** This implementation follows Sebastian Raschka's *[Build a Large Language Model (From Scratch)](https://github.com/rasbt/LLMs-from-scratch)*. I built it to develop a genuine, line-by-line understanding of LLM internals, and extended it with my own fine-tuning experiments and analysis.
 
