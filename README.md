@@ -14,7 +14,7 @@ Every component below was coded from the ground up in PyTorch — no high-level 
 - **Transformer blocks** with LayerNorm, GELU feedforward layers, residual connections, and dropout
 - **Full LLM architecture** — token + positional embeddings through the output head
 - **Pretraining loop** on raw text, with train/validation loss tracking and temperature + top-k sampling
-- **Loading real pretrained weights** (GPT-2, 124M and 355M) into the custom architecture — including the non-trivial mapping of the fused QKV matrix into separate query/key/value projections
+- **Loading real pretrained weights** (GPT-2, 124M and 355M) into the custom architecture, including the non-trivial mapping of the fused QKV matrix into separate query/key/value projections
 - **Classification fine-tuning** — transfer learning into an SMS spam detector
 - **Instruction fine-tuning** — adapting the model to follow instructions, the same alignment step behind modern chat assistants
 
@@ -38,7 +38,7 @@ Starting from the pretrained weights, I froze the backbone, replaced the output 
 ![Loss curve](loss-plot.png)
 ![Accuracy curve](accuracy-plot.png)
 
-Loss falls from ~2.4 to near zero; accuracy climbs from 50% (random) to ~96%, with training and validation tracking closely — a healthy, low-overfitting fit.
+Loss falls from ~2.4 to near zero; accuracy climbs from 50% (random) to ~96%, with training and validation tracking closely a healthy, low-overfitting fit.
 
 ---
 
@@ -55,7 +55,7 @@ Sample outputs:
 | Rewrite the sentence using a simile: "The car is very fast." | "The car is as fast as a bullet." |
 | Name the author of 'Pride and Prejudice'. | "The author of 'Pride and Prejudice' is Jane Austen." |
 
-The model handles simpler instructions well and shows the expected fragility of a small model on some factual-recall prompts — a limitation that larger models and retrieval-augmented generation (RAG) are designed to address.
+The model handles simpler instructions well and shows the expected fragility of a small model on some factual-recall prompts, a limitation that larger models and retrieval-augmented generation (RAG) are designed to address.
 
 ---
 
@@ -71,7 +71,7 @@ To see the effect of scale directly, I ran the same prompts through both the 124
 - **124M:** "...if you're going to make a living online and find yourself doing something, you're probably better off taking it for granted..."
 - **355M:** "...if you are a successful entrepreneur, you need to write your own code instead of using other people's code..."
 
-Across prompts, the 355M model stays more focused and grammatical — a small, hands-on illustration of how model scale improves output quality, holding architecture and decoding settings constant.
+Across prompts, the 355M model stays more focused and grammatical a small, hands-on illustration of how model scale improves output quality, holding architecture and decoding settings constant.
 
 ---
 
@@ -107,9 +107,9 @@ The larger model stays fluent and on-topic for longer — a small, hands-on illu
 ## What I took away from building this
 
 - **Attention is an information-routing mechanism.** Each token produces a query, key, and value; the query-key dot products decide how much each token attends to every other, and the softmax-weighted sum of values is how context gets mixed in. Building it by hand made the math concrete in a way reading never did.
-- **Weight-loading is the real correctness test.** Mapping pretrained weights into my own layer naming - splitting the fused QKV matrix, transposing each projection, aligning every block - only produces coherent text if the architecture is exactly right. Watching it generate fluent text was proof the implementation was correct end to end.
-- **Fine-tuning is efficient.** Training only the last block, final norm, and a new head - a small fraction of the parameters - reached ~96% accuracy in under two minutes on a 4GB GPU.
-- **Working within hardware limits is part of the job.** A 4GB laptop GPU meant managing out-of-memory errors, per-batch padding, and matching model size to the task - the real constraints engineers face.
+- **Weight-loading is the real correctness test.** Mapping pretrained weights into my own layer naming, splitting the fused QKV matrix, transposing each projection, aligning every block only produces coherent text if the architecture is exactly right. Watching it generate fluent text was proof the implementation was correct end to end.
+- **Fine-tuning is efficient.** Training only the last block, final norm, and a new head - a small fraction of the parameters reached ~96% accuracy in under two minutes on a 4GB GPU.
+- **Working within hardware limits is part of the job.** A 4GB laptop GPU meant managing out-of-memory errors, per-batch padding, and matching model size to the task, the real constraints engineers face.
 
 ---
 
