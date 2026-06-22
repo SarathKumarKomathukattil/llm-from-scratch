@@ -101,7 +101,6 @@ The larger model stays fluent and on-topic for longer — a small, hands-on illu
 | `spam_classifier_model.py` | Classification fine-tuning (SMS spam detection) |
 | `instruction_tuned_model.py` | Instruction fine-tuning |
 | `compare_models.py` | Side-by-side generation comparison (124M vs 355M) |
-| `compare_models.py` | Side-by-side generation comparison (124M vs 355M) |
 
 ---
 
